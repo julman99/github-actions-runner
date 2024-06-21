@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-CONFIGURED_FILE="/actions-runner/.configured"
+CONFIGURED_FILE="/actions-runner-status/configured"
 
 if [ -z "${NAME}" ]; then
     echo "Error, NAME must be specified via envvar"
