@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e
 
-CONFIGURED_FILE="/actions-runner-status/configured"
-
 if [ -z "${NAME}" ]; then
     echo "Error, NAME must be specified via envvar"
     exit 1
@@ -18,9 +16,15 @@ if [ -z "${RUNNER_GROUP}" ]; then
     RUNNER_GROUP="default"
 fi
 
-if [ ! -f $CONFIGURED_FILE ]; then
+if [ ! -f "/actions-runner/config.sh" ]; then
+    echo "Copying actions-runner directory..."
+    cp -R /actions-runner-download/actions-runner/. /actions-runner/
+fi
+
+cd /actions-runner
+
+if [ ! -f "/actions-runner/.runner" ]; then
     ./config.sh --unattended --url https://github.com/kluster-ai --token $TOKEN --replace --name "$NAME" --runnergroup "$RUNNER_GROUP"
-    touch $CONFIGURED_FILE
 fi
 
 
