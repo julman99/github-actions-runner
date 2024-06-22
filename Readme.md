@@ -7,6 +7,7 @@ https://hub.docker.com/repository/docker/julman99/github-self-hosted-runner
 ```
 docker run -it --rm \
   -e TOKEN=<your-runner-token> \
+  -e REPO_URL=<your-repo-url> \
   -e NAME=<your-runner-name> \
   -e RUNNER_GROUP=<your-runner-group-optional> \
   -v <local-path>=/actions-runner \
