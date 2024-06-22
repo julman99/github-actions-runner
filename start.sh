@@ -11,6 +11,11 @@ if [ -z "${TOKEN}" ]; then
     exit 1
 fi
 
+if [ -z "${REPO_URL}" ]; then
+    echo "Error, REPO_URL must be specified via envvar with the repository url"
+    exit 1
+fi
+
 
 if [ -z "${RUNNER_GROUP}" ]; then
     RUNNER_GROUP="default"
@@ -24,7 +29,7 @@ fi
 cd /actions-runner
 
 if [ ! -f "/actions-runner/.runner" ]; then
-    ./config.sh --unattended --url https://github.com/kluster-ai --token $TOKEN --replace --name "$NAME" --runnergroup "$RUNNER_GROUP"
+    ./config.sh --unattended --url $REPO_URL --token $TOKEN --replace --name "$NAME" --runnergroup "$RUNNER_GROUP"
 fi
 
 
