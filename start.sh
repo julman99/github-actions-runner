@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
 if [ -z "${NAME}" ]; then
     echo "Error, NAME must be specified via envvar"
@@ -26,11 +26,10 @@ if [ ! -f "/actions-runner/config.sh" ]; then
     cp -R /actions-runner-download/actions-runner/. /actions-runner/
 fi
 
-cd /actions-runner
+cd /actions-runner || exit 1
 
 if [ ! -f "/actions-runner/.runner" ]; then
-    ./config.sh --unattended --url $REPO_URL --token $TOKEN --replace --name "$NAME" --runnergroup "$RUNNER_GROUP"
+    ./config.sh --unattended --url "$REPO_URL" --token "$TOKEN" --replace --name "$NAME" --runnergroup "$RUNNER_GROUP"
 fi
 
-
-./run.sh
+exec ./run.sh
