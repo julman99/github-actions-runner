@@ -1,5 +1,5 @@
 #!/bin/bash
-set -euo pipefail
+set -e
 
 if [ -z "${NAME}" ]; then
     echo "Error, NAME must be specified via envvar"
